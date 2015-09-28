@@ -13,8 +13,8 @@ public:
 	virtual bool init();
 	void load();
 	void save(int);
-	void RankBirdLayer::menuCallBack0(Ref* pSender);
-	void RankBirdLayer::menuCallBack1(Ref* pSender);
+	void menuCallBack0(Ref* pSender);
+	void menuCallBack1(Ref* pSender);
 	CREATE_FUNC(RankBirdLayer);
 };
 

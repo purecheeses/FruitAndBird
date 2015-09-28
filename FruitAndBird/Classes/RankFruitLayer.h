@@ -11,8 +11,8 @@ public:
 	GameSceneManger* sceneManager;
 public:
 	virtual bool init();
-	//void RankFruitLayer::menuCallBack0(Ref* pSender);
-	//void RankFruitLayer::menuCallBack1(Ref* pSender);
+	//void menuCallBack0(Ref* pSender);
+	//void menuCallBack1(Ref* pSender);
 	CREATE_FUNC(RankFruitLayer);
 };
 
