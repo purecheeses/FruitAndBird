@@ -2,6 +2,7 @@
 #include "MainLayer.h"
 #include "RankBirdLayer.h"
 #include "RankFruitLayer.h"
+#include "SetLayer.h"
 
 void GameSceneManger::createMainScene(){
 	mainScene = Scene::create();
@@ -29,7 +30,15 @@ void GameSceneManger::goToMainScene(){
     Director::getInstance()->replaceScene(ss);
 };
 
-void GameSceneManger::goToSetScene(){};
+void GameSceneManger::goToSetScene(){
+	Director::getInstance()->setDepthTest(true);
+	musicScene = Scene::create();
+	SetLayer* setLayer = SetLayer::create();
+	musicScene->addChild(setLayer);
+	setLayer->sceneManager = this;
+	auto ss = TransitionPageTurn::create(1, musicScene, false);
+	Director::getInstance()->replaceScene(ss);
+};
 
 void GameSceneManger::goToRankBirdScene(){
     Director::getInstance()->setDepthTest(true);
