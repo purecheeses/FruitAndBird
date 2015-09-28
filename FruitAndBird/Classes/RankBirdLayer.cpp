@@ -1,5 +1,6 @@
 #include "RankBirdLayer.h"
 USING_NS_CC;
+using namespace std;
 
 bool RankBirdLayer::init(){
 	if (!Layer::init()){
@@ -49,7 +50,28 @@ bool RankBirdLayer::init(){
 	menu->setPosition(Point::ZERO);
 	this->addChild(menu, 10);
 	int* tmpBird = new int[5];
+	load();
+	for (int i = 0; i < 5; i++){
+		string score;
+		tmpBird[i] = atoi(scoreBird[i].c_str());
+		if (tmpBird[i] == 0){
+			score = "-";
+		}
+		else{
+			score = scoreBird[i];
+		}
+		string number = StringUtils::format("%d", i + 1);
 
+		labels = Label::createWithTTF(number, "fonts/FZKATJW.ttf", 60, Size::ZERO, TextHAlignment::LEFT, TextVAlignment::TOP);
+		rank->addChild(labels, 2);
+		labels->setPosition(Point(90, 280 - 50 * i));
+		labels->enableOutline(Color4B(187, 187, 187, 255), 2);
+
+		labels = Label::createWithTTF(score, "fonts/FZKATJW.ttf", 60, Size::ZERO, TextHAlignment::LEFT, TextVAlignment::TOP);
+		rank->addChild(labels, 2);
+		labels->setPosition(Point(315, 280 - (50 * i)));
+		labels->enableOutline(Color4B(187, 187, 187, 255), 2);
+	}
 
 	return true;
 }
@@ -63,10 +85,35 @@ void RankBirdLayer::menuCallBack1(Ref* pSender){
 }
 
 void RankBirdLayer::save(int newScore){
-
+	string score;
+	string oldScore;
+	int *tempBird = new int[5];
+	load();
+	for (int i = 0; i<5; i++)
+	{
+		tempBird[i] = atoi(scoreBird[i].c_str());
+	}
+	for (int i = 4; i >= 0; i--)
+	{
+		if (newScore >= tempBird[i])
+		{
+			score = StringUtils::format("%d", newScore);
+			if (i != 4)
+			{
+				oldScore = StringUtils::format("%d", tempBird[i]);
+				UserDefault::getInstance()->setStringForKey(StringUtils::format("b%d", (i + 1)).c_str(), oldScore);
+			}
+			UserDefault::getInstance()->setStringForKey(StringUtils::format("b%d", i).c_str(), score);
+		}
+		else
+		{
+			break;
+		}
+	}
+	UserDefault::getInstance()->flush();
 }
 void RankBirdLayer::load(){
 	for (int i = 0; i < 5; i++){
-		
+		scoreBird[i] = UserDefault::getInstance()->getStringForKey(StringUtils::format("b%d", i).c_str(), "0");
 	}
 }
