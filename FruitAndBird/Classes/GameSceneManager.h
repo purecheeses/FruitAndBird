@@ -9,6 +9,7 @@ public:
 	Scene* mainScene;
     Scene* rankScene;
 	Scene* musicScene;
+	Scene* helpScene;
 public:
 	//创建主界面场景对象的方法
 	void createMainScene();

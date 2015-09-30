@@ -3,6 +3,7 @@
 #include "RankBirdLayer.h"
 #include "RankFruitLayer.h"
 #include "SetLayer.h"
+#include "HelpLayer.h"
 
 void GameSceneManger::createMainScene(){
 	mainScene = Scene::create();
@@ -61,4 +62,13 @@ void GameSceneManger::goToRankFruitScene(){
 
 void GameSceneManger::goToAboutScene(){};
 
-void GameSceneManger::goToHelpScene(){};
+void GameSceneManger::goToHelpScene(){
+	Director::getInstance()->setDepthTest(true);
+	helpScene = Scene::create();
+	HelpLayer* layer = HelpLayer::create();
+	helpScene->addChild(layer);
+	layer->sceneManager = this;
+	auto ss = TransitionPageTurn::create(1, helpScene, false);
+	//ÇÐ»»³¡¾°
+	Director::getInstance()->replaceScene(ss);
+};
