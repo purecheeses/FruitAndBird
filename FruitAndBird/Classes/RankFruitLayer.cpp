@@ -6,11 +6,11 @@ using namespace std;
 bool RankFruitLayer::init()
 {
 	//调用父类的初始化
-	if (!Layer::init())
-	{
-		return false;
-	}
-	//获取可见区域尺寸
+    if ( !Layer::init() )
+    {
+        return false;
+    }
+    //获取可见区域尺寸
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	//获取可见区域原点坐标
 	Point origin = Director::getInstance()->getVisibleOrigin();
@@ -19,7 +19,7 @@ bool RankFruitLayer::init()
 	//设置锚点
 	backGround->setAnchorPoint(Point(0, 0));
 	//设置精灵对象的位置
-	backGround->setPosition(Point(origin.x, origin.y + visibleSize.height - backGround->getContentSize().height));
+	backGround->setPosition(Point(origin.x,origin.y + visibleSize.height - backGround->getContentSize().height));
 	//将精灵添加到布景中
 	this->addChild(backGround, 0);
 
@@ -32,10 +32,10 @@ bool RankFruitLayer::init()
 	this->addChild(floor);
 	floor->runAction(RepeatForever::create(
 		Sequence::create(
-		MoveTo::create(0.5, Point(-120, 0)),
-		MoveTo::create(0, Point(0, 0)),
-		NULL
-		)));
+				MoveTo::create(0.5, Point(-120, 0)),
+				MoveTo::create(0, Point(0, 0)),
+				NULL
+	)));
 
 	//创建排行榜背景
 	Sprite* rank = Sprite::create("pic/rankBackground.png");
@@ -54,49 +54,48 @@ bool RankFruitLayer::init()
 	MenuItemImage* menuItem = MenuItemImage::create(
 		"button/menu.png",
 		"button/menu_off.png",
-		CC_CALLBACK_1(RankFruitLayer::menuCallBack0, this) //点击时执行的回调方法
-		);
+		 CC_CALLBACK_1(RankFruitLayer::menuCallBack0, this) //点击时执行的回调方法
+	);
 	menuItem->setPosition(Point(80, 50));
 	//
 	MenuItemImage* nextItem = MenuItemImage::create(
 		"button/back.png",
 		"button/back_off.png",
-		CC_CALLBACK_1(RankFruitLayer::menuCallBack1, this) //点击时执行的回调方法
-		);
+		 CC_CALLBACK_1(RankFruitLayer::menuCallBack1, this) //点击时执行的回调方法
+	);
 	nextItem->setPosition(Point(460, 50));
 
 	Menu* menu = Menu::create(menuItem, nextItem, NULL);
 	//设置菜单位置
 	menu->setPosition(Point::ZERO);
-	this->addChild(menu, 10);
+	this->addChild(menu,10);
 
 	//显示分数
 	int *tempFruit = new int[5];
 	load();
 	//提取各排名
-	for (int i = 0; i<5; i++)
+	for(int i = 0; i<5; i++)
 	{
 		string score;
-		string number = StringUtils::format("%d", (i + 1));
+		string number = StringUtils::format("%d", (i+1));
 		tempFruit[i] = atoi(scoreFruit[i].c_str());
-		if (tempFruit[i] == 0)
+		if(tempFruit[i] == 0)
 		{
 			score = "-";
-		}
-		else
+		}else
 		{
 			score = scoreFruit[i];
 		}
-		labels = Label::createWithTTF(number, "fonts/FZKATJW.ttf", 60, Size::ZERO, TextHAlignment::LEFT, TextVAlignment::TOP);
+		labels = Label::createWithTTF (number, "fonts/FZKATJW.ttf", 60, Size::ZERO, TextHAlignment::LEFT, TextVAlignment::TOP);
 		rank->addChild(labels);
-		labels->setPosition(Point(100, 280 - (50 * i)));
-		labels->enableOutline(Color4B(187, 187, 187, 255), 2);
-		labels = Label::createWithTTF(score, "fonts/FZKATJW.ttf", 60, Size::ZERO, TextHAlignment::LEFT, TextVAlignment::TOP);
+		labels->setPosition(Point(100, 280-(50*i)));
+		labels->enableOutline(Color4B(187, 187, 187, 255),2);
+		labels = Label::createWithTTF (score, "fonts/FZKATJW.ttf", 60, Size::ZERO, TextHAlignment::LEFT, TextVAlignment::TOP);
 		rank->addChild(labels);
-		labels->setPosition(Point(315, 280 - (50 * i)));
-		labels->enableOutline(Color4B(187, 187, 187, 255), 2);
+		labels->setPosition(Point(315, 280-(50*i)));
+		labels->enableOutline(Color4B(187, 187, 187, 255),2);
 	}
-	return true;
+    return true;
 }
 //记录分数
 void RankFruitLayer::save(int newScore)
@@ -106,24 +105,23 @@ void RankFruitLayer::save(int newScore)
 	int *tempFruit = new int[5];
 	load();
 	//提取各排名
-	for (int i = 0; i<5; i++)
+	for(int i = 0; i<5; i++)
 	{
 		tempFruit[i] = atoi(scoreFruit[i].c_str());
 	}
 	//最新分数与排名分数比较
-	for (int i = 4; i >= 0; i--)
+	for(int i = 4; i>=0; i--)
 	{
-		if (newScore >= tempFruit[i])
+		if(newScore>=tempFruit[i])
 		{
 			score = StringUtils::format("%d", newScore);
-			if (i != 4)
+			if(i!=4)
 			{
 				oldScore = StringUtils::format("%d", tempFruit[i]);
-				UserDefault::getInstance()->setStringForKey(StringUtils::format("f%d", (i + 1)).c_str(), oldScore);
+				UserDefault::getInstance()->setStringForKey(StringUtils::format("f%d", (i+1)).c_str() , oldScore);
 			}
 			UserDefault::getInstance()->setStringForKey(StringUtils::format("f%d", i).c_str(), score);
-		}
-		else
+		}else
 		{
 			break;
 		}
@@ -134,7 +132,7 @@ void RankFruitLayer::save(int newScore)
 //读取分数
 void RankFruitLayer::load()
 {
-	for (int i = 0; i<5; i++)
+	for(int i=0; i<5; i++)
 	{
 		scoreFruit[i] = UserDefault::getInstance()->getStringForKey(StringUtils::format("f%d", i).c_str(), "0");
 	}

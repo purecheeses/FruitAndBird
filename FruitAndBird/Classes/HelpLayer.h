@@ -9,14 +9,14 @@ using namespace cocos2d;
 class HelpLayer : public Layer
 {
 public:
-	GameSceneManger* sceneManager;
+	GameSceneManager* sceneManager;
 
 	Sprite* (sp)[4];
 	//索引
-	int index = 0;
-	Point beganPoint = Point(0, 0);
-	Point endPoint = Point(0, 0);
-	bool moveFlag = false;
+	int index=0;
+	Point beganPoint=Point(0,0);
+	Point endPoint = Point(0,0);
+	bool moveFlag=false;
 public:
 	//初始化布景的方法
 	virtual bool init();

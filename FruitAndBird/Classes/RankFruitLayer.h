@@ -14,12 +14,12 @@ public:
 	//声明显示分数的文本
 	Label* labels;
 	//场景管理指针
-	GameSceneManger* sceneManager;
+	GameSceneManager* sceneManager;
 public:
 	//初始化父类
 	virtual bool init();
 	//记录分数
-	void save(int);
+	void save (int);
 	//读取分数
 	void load();
 	//返回住菜单键

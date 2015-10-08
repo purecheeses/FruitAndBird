@@ -5,19 +5,23 @@
 #include "GameSceneManager.h"
 #include "ui/CocosGUI.h"
 
-USING_NS_CC;
+using namespace cocos2d;
 using namespace ui;
 
-class SetLayer :public Layer{
+class SetLayer : public Layer
+{
 public:
-	GameSceneManger* sceneManager;
+	//场景管理指针
+	GameSceneManager* sceneManager;
 public:
-	void menuCallBack(Ref* pSender);
+	//初始化父类
 	virtual bool init();
-	void selectedEvent0(Ref* pSender, CheckBox::EventType type);
-	void selectedEvent1(Ref* pSender, CheckBox::EventType type);
+	//返回住菜单键
+	void menuCallBack(Ref* pSender);
+	//复选框
+	void selectedEvent0(Ref* pSender,CheckBox::EventType type);
+	void selectedEvent1(Ref* pSender,CheckBox::EventType type);
 	CREATE_FUNC(SetLayer);
 };
-
 
 #endif

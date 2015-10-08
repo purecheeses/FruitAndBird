@@ -3,19 +3,24 @@
 
 #include "cocos2d.h"
 #include "GameSceneManager.h"
-USING_NS_CC;
 
-class MainLayer : public cocos2d::Layer{
+using namespace cocos2d;
+
+class MainLayer : public Layer
+{
 public:
 	Sprite* backGround;
+	//
 	NodeGrid* effectNode;
-	GameSceneManger* sceneManager;
 	//背景音乐标志位
 	static bool musicFlag;
 	//音效标志位
 	static bool soundFlag;
+	//场景管理指针
+	GameSceneManager* sceneManager;
 public:
 	virtual bool init();
+	int random();
 	void menuCallBack0(Ref* pSender);
 	void menuCallBack1(Ref* pSender);
 	void menuCallBack2(Ref* pSender);
